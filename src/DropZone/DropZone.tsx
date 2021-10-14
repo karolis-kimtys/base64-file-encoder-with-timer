@@ -4,39 +4,37 @@ import { useDropzone } from 'react-dropzone';
 export default function MyDropzone() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isBase64, setIsBase64] = useState<any>();
+    const [, setIsBase64] = useState<string | any | null | undefined>();
 
     const [isTimer, setIsTimer] = useState('0');
 
-    const onDrop = useCallback(
-        (acceptedFiles) => {
-            setIsLoading(false);
-            setIsLoaded(false);
-            const t0 = performance.now();
-            acceptedFiles.forEach((file: any) => {
-                setIsLoading(true);
-                const reader = new FileReader();
-                reader.readAsDataURL(file);
+    const onDrop = useCallback((acceptedFiles) => {
+        setIsLoading(false);
+        setIsLoaded(false);
+        const t0 = performance.now();
+        acceptedFiles.forEach((file: any) => {
+            setIsLoading(true);
+            const reader = new FileReader();
+            reader.readAsDataURL(file);
 
-                reader.onerror = function (error) {
-                    console.log('Error: ', error);
-                };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
 
-                reader.onload = function () {
-                    console.log('Base64 Encoded', reader.result);
-                    setIsBase64(reader.result);
+            reader.onload = function () {
+                console.log('Base64 Encoded', reader.result);
+                const res = reader.result;
+                setIsBase64(res);
 
-                    const t1 = performance.now();
-                    const time = t1 - t0;
-                    setIsTimer(time.toFixed());
-                    setIsLoading(false);
+                const t1 = performance.now();
+                const time = t1 - t0;
+                setIsTimer(time.toFixed());
+                setIsLoading(false);
 
-                    setIsLoaded(true);
-                };
-            });
-        },
-        [isBase64],
-    );
+                setIsLoaded(true);
+            };
+        });
+    }, []);
 
     const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
