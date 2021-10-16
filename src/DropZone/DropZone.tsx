@@ -40,16 +40,21 @@ export default function MyDropzone() {
 
     return (
         <div>
+            <div className="info">
+                <h1>Base64 Converter/Counter</h1>
+                <p>Select a file and it will encode file to Base64 format and calculate time taken to encode.</p>
+                <p>(All done on client side, offline.)</p>
+            </div>
+
             <div {...getRootProps()} className="dropzone">
                 <input {...getInputProps()} />
 
-                {isLoading ? <p>Encoding the file...</p> : <p>Drag and drop or select files here</p>}
+                {isLoading ? <h3>Encoding the file...</h3> : <h3>Drag and drop or select files here</h3>}
             </div>
-            <br />
+
             {isLoaded && (
                 <div>
-                    <p className="dropzone">Time it took to convert to Base64</p>
-                    <p className="dropzone">{isTimer} ms</p>
+                    <h3 className="dropzone">It took {isTimer} ms. to encode file/s to Base64 format.</h3>
                 </div>
             )}
 
