@@ -41,7 +41,7 @@ export default function MyDropzone() {
     return (
         <div>
             <div className="info">
-                <h1>Base64 Converter/Counter</h1>
+                <h1>Base64 Encoding Timer</h1>
                 <p>Select a file and it will encode file to Base64 format and calculate time taken to encode.</p>
                 <p>(All done on client side, offline.)</p>
             </div>
