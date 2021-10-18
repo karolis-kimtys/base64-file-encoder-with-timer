@@ -4,7 +4,7 @@ import { useDropzone } from 'react-dropzone';
 export default function MyDropzone() {
     const [isLoaded, setIsLoaded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [, setIsBase64] = useState<string | any | null | undefined>();
+    const [isBase64, setIsBase64] = useState<string | any | null | undefined>();
 
     const [isTimer, setIsTimer] = useState('0');
 
@@ -23,8 +23,8 @@ export default function MyDropzone() {
 
             reader.onload = function () {
                 console.log('Base64 Encoded', reader.result);
-                const res = reader.result;
-                setIsBase64(res);
+
+                setIsBase64({ file: file, result: reader.result });
 
                 const t1 = performance.now();
                 const time = t1 - t0;
@@ -58,7 +58,14 @@ export default function MyDropzone() {
                 </div>
             )}
 
-            {/* {isLoaded && <textarea className="dropzone textarea" readOnly value={isBase64} />} */}
+            {isLoaded && console.log(isBase64)}
+            {isLoaded && (
+                <div className="info">
+                    <p>Name: {isBase64.file.name}</p>
+                    <p>Type: {isBase64.file.type}</p>
+                    <p>Size: {isBase64.file.size}</p>
+                </div>
+            )}
         </div>
     );
 }
